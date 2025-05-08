@@ -9,18 +9,17 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-    private Long userId;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId", nullable = false)
+    private User user;
     private String taskTitle;
 
     private String taskComment;
 
     private boolean isDone = false;
 
-    public Task(Long id, Long userId, String taskTitle, String taskComment, boolean isDone) {
+    public Task(Long id, String taskTitle, String taskComment, boolean isDone) {
         this.id = id;
-        this.userId = userId;
         this.taskTitle = taskTitle;
         this.taskComment = taskComment;
         this.isDone = isDone;
@@ -35,14 +34,6 @@ public class Task {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public String getTaskTitle() {
@@ -73,7 +64,6 @@ public class Task {
     public String toString() {
         return "Task{" +
                 "id=" + id +
-                ", userId=" + userId +
                 ", taskTitle='" + taskTitle + '\'' +
                 ", taskComment='" + taskComment + '\'' +
                 ", isDone=" + isDone +

@@ -2,7 +2,7 @@ package com.example.komponentIntegrationsTestEx.models;
 
 import jakarta.persistence.*;
 
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -15,6 +15,9 @@ public class User {
 
     private String email;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Task> tasks = new ArrayList<>();
+
     public User(Long id, String name, String email) {
         this.id = id;
         this.name = name;
@@ -22,6 +25,14 @@ public class User {
     }
 
     public User() {
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     public long getId() {
