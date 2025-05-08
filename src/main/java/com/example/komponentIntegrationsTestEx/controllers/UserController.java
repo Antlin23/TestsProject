@@ -2,6 +2,7 @@ package com.example.komponentIntegrationsTestEx.controllers;
 
 import com.example.komponentIntegrationsTestEx.models.User;
 import com.example.komponentIntegrationsTestEx.services.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,7 +37,8 @@ public class UserController {
        userService.deleteUser(id);
     }
 
-
-
-
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
+        return ResponseEntity.ok(userService.updateUser(id, user));
+    }
 }

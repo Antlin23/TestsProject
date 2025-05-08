@@ -1,5 +1,6 @@
 package com.example.komponentIntegrationsTestEx.services;
 
+import com.example.komponentIntegrationsTestEx.models.Task;
 import com.example.komponentIntegrationsTestEx.models.User;
 import com.example.komponentIntegrationsTestEx.repositorys.UserRepository;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+
     public List<User> getAllUsers(){
         return userRepository.findAll();
     }
@@ -27,8 +29,16 @@ public class UserService {
         return userRepository.save(user);
     }
 
-
     public void deleteUser(long id){
         userRepository.deleteById(id);
+    }
+
+    public User updateUser(Long id, User updatedUser) {
+        User existingUser = getUserById(id)
+                .orElseThrow(() -> new RuntimeException("User not found with id " + id));
+
+        existingUser.setName(updatedUser.getName());
+        existingUser.setEmail(updatedUser.getEmail());
+        return userRepository.save(existingUser);
     }
 }
