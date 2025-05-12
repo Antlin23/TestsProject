@@ -56,4 +56,5 @@ class UserServiceUnitTest {
         //assert
         assertEquals("anton@gmail.com", result.getEmail());
     }
+
 }

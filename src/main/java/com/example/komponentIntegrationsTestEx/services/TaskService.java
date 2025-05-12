@@ -38,5 +38,4 @@ public class TaskService {
         existingTask.setDone(updatedTask.isDone());
         return taskRepository.save(existingTask);
     }
-
 }
