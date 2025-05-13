@@ -16,6 +16,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.verify;
@@ -76,6 +78,23 @@ public class TaskServiceUnitTest {
 
         verify(taskRepository, times(1)).findById(taskId);
         verify(taskRepository, times(1)).save(existingTask);
+    }
+    @Test
+    void GetAllTasks_ShouldReturnAllTasks() {
+        // Arrange
+        Task task = new Task(1L, "Clean the kitchen.", "Do dishes, clean the table.", false);
+        List<Task> tasks = List.of(task);
+
+        when(taskRepository.findAll()).thenReturn(tasks);
+
+        // Act
+        List<Task> result = taskService.getAllTasks();
+
+        // Assert
+        assertEquals(1, result.size());
+        assertEquals("Clean the kitchen.", result.get(0).getTaskTitle());
+        verify(taskRepository, times(1)).findAll();
+
     }
 
 }
