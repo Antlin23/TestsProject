@@ -53,4 +53,12 @@ class UserServiceUnitTest {
         //assert
         assertEquals("anton@gmail.com", result.getEmail());
     }
+
+    @Test
+    void deleteUser_ShouldCallRepository() {
+        long userId = 1L;
+        userRepository.deleteById(userId);
+
+        verify(userRepository, times(1)).deleteById(userId);
+    }
 }
