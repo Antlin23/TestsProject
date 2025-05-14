@@ -3,6 +3,7 @@ package com.example.komponentIntegrationsTestEx.services;
 import com.example.komponentIntegrationsTestEx.models.Task;
 
 import com.example.komponentIntegrationsTestEx.repositorys.TaskRepository;
+import com.example.komponentIntegrationsTestEx.repositorys.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,9 +11,11 @@ import java.util.List;
 @Service
 public class TaskService {
     private final TaskRepository taskRepository;
+    private final UserRepository userRepository;
 
-    public TaskService(TaskRepository taskRepository) {
+    public TaskService(TaskRepository taskRepository, UserRepository userRepository) {
         this.taskRepository = taskRepository;
+        this.userRepository = userRepository;
     }
 
     public Task getTaskById(Long id) {
@@ -26,6 +29,7 @@ public class TaskService {
     public Task createTask(Task task){
         return taskRepository.save(task);
     }
+
 
     public void deleteTask(long id){
         taskRepository.deleteById(id);

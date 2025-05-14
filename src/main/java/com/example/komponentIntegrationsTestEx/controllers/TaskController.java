@@ -3,6 +3,7 @@ package com.example.komponentIntegrationsTestEx.controllers;
 
 import com.example.komponentIntegrationsTestEx.models.Task;
 import com.example.komponentIntegrationsTestEx.models.User;
+import com.example.komponentIntegrationsTestEx.repositorys.UserRepository;
 import com.example.komponentIntegrationsTestEx.services.*;
         import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +14,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/task")
 public class TaskController {
     private final TaskService taskService;
+    private final UserRepository userRepository;
 
-    public TaskController(TaskService taskService) {
+    public TaskController(TaskService taskService, UserRepository userRepository) {
         this.taskService = taskService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping

@@ -1,5 +1,8 @@
 package com.example.komponentIntegrationsTestEx.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.*;
@@ -15,6 +18,8 @@ public class User {
 
     private String email;
 
+
+    @JsonManagedReference
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Task> tasks = new ArrayList<>();
 
