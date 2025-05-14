@@ -7,12 +7,15 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
 class UserServiceUnitTest {
 
@@ -53,4 +56,13 @@ class UserServiceUnitTest {
         //assert
         assertEquals("anton@gmail.com", result.getEmail());
     }
+
+    @Test
+    void deleteUser_ShouldCallRepository() {
+        long userId = 1L;
+        userRepository.deleteById(userId);
+
+        verify(userRepository, times(1)).deleteById(userId);
+    }
+
 }

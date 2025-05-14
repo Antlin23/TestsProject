@@ -1,5 +1,7 @@
 package com.example.komponentIntegrationsTestEx.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -9,8 +11,11 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+    @JsonBackReference
+    //@JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "user_Id", nullable = false,referencedColumnName = "id")
     private User user;
     private String taskTitle;
 
@@ -68,5 +73,13 @@ public class Task {
                 ", taskComment='" + taskComment + '\'' +
                 ", isDone=" + isDone +
                 '}';
+    }
+
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    public User getUser() {
+        return user;
     }
 }
